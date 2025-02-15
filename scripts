@@ -1,0 +1,13 @@
+#!/bin/bash
+
+DOMAIN="cyber-ed.ru"
+OUTPUT="results/subdomains.txt"
+
+# Поиск поддоменов с помощью Subfinder
+subfinder -d $DOMAIN -o $OUTPUT
+
+# Проверка TXT-записей
+while read -r subdomain; do
+    echo "Checking $subdomain..."
+    host -t txt $subdomain
+done < $OUTPUT
